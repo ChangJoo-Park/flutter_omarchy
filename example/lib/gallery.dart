@@ -533,20 +533,36 @@ class WidgetsPage extends StatelessWidget {
                     ),
                   ],
                 ),
-                Section(
-                  title: 'StatusBar',
-                  children: [
-                    OmarchyStatusBar(
-                      leading: [
-                        for (var accent in AnsiColor.values)
+                SliverPadding(
+                  padding: const EdgeInsets.only(bottom: 24),
+                  sliver: Section(
+                    title: 'StatusBar',
+                    children: [
+                      OmarchyStatusBar(
+                        leading: [
+                          for (var accent in AnsiColor.values)
+                            OmarchyStatus(
+                              accent: accent,
+                              onTap: () {},
+                              child: Text(accent.name.toUpperCase()),
+                            ),
+                        ],
+                        trailing: [
                           OmarchyStatus(
-                            accent: accent,
+                            accent: AnsiColor.white,
                             onTap: () {},
-                            child: Text(accent.name.toUpperCase()),
+                            child: Row(
+                              spacing: 4,
+                              children: [
+                                Text('Trailing'),
+                                Icon(OmarchyIcons.faFile),
+                              ],
+                            ),
                           ),
-                      ],
-                    ),
-                  ],
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
               ]
               .asMap()

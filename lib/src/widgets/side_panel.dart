@@ -117,10 +117,6 @@ class _OmarchySplitPanelState extends State<OmarchySidePanel> {
                       : widget.minPanelMargin);
               final minSize = widget.minPanelSize?.resolve(maxSize) ?? 0.0;
               final panelSize = max(minSize, widget.panelSize.resolve(maxSize));
-              print(layout.maxWidth);
-              print(minSize);
-              print(maxSize);
-              print(panelSize);
               return Stack(
                 children: [
                   Positioned.fill(

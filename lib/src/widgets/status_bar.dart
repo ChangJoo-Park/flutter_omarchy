@@ -15,35 +15,64 @@ class OmarchyStatusBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = OmarchyTheme.of(context);
-    return Container(
-      color: theme.colors.normal.black,
-      child: DefaultTextStyle(
-        style: DefaultTextStyle.of(context).style,
-        maxLines: 1,
-        child: Row(
-          children: [
-            if (leading case final leading?)
-              Expanded(
-                child: SidePositioning(
-                  position: SidePosition.leading,
-                  child: OverflowBar(children: [...leading.group()]),
-                ),
-              )
-            else
-              Expanded(child: SizedBox()),
-            if (trailing case final trailing?)
-              Flexible(
-                flex: 0,
-
-                fit: FlexFit.tight,
-                child: SidePositioning(
-                  position: SidePosition.leading,
-                  child: OverflowBar(
-                    children: [...trailing..group()].reversed.toList(),
+    return ClipRect(
+      child: Container(
+        height: (theme.text.normal.fontSize ?? 14) * 1.8,
+        color: theme.colors.normal.black,
+        child: DefaultTextStyle(
+          style: DefaultTextStyle.of(context).style,
+          maxLines: 1,
+          child: Row(
+            children: [
+              if (leading case final leading?)
+                Expanded(
+                  child: SidePositioning(
+                    position: SidePosition.leading,
+                    child: Stack(
+                      children: [
+                        ListView(
+                          scrollDirection: Axis.horizontal,
+                          children: [...leading.group(), SizedBox(width: 24)],
+                        ),
+                        Positioned(
+                          width: 24,
+                          top: 0,
+                          right: 0,
+                          bottom: 0,
+                          child: Container(
+                            decoration: BoxDecoration(
+                              gradient: LinearGradient(
+                                colors: [
+                                  theme.colors.normal.black.withValues(
+                                    alpha: 0,
+                                  ),
+                                  theme.colors.normal.black,
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                )
+              else
+                Expanded(child: SizedBox()),
+              if (trailing case final trailing?)
+                Flexible(
+                  flex: 0,
+                  fit: FlexFit.tight,
+                  child: SidePositioning(
+                    position: SidePosition.leading,
+                    child: ListView(
+                      shrinkWrap: true,
+                      scrollDirection: Axis.horizontal,
+                      children: [...trailing..group()].reversed.toList(),
+                    ),
                   ),
                 ),
-              ),
-          ],
+            ],
+          ),
         ),
       ),
     );
@@ -74,7 +103,7 @@ class OmarchyStatus extends StatelessWidget {
         onTap: onTap,
         builder: (context, state, child) {
           return AnimatedContainer(
-            padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 6.0),
+            padding: const EdgeInsets.symmetric(horizontal: 8.0),
             duration: const Duration(milliseconds: 120),
             decoration: BoxDecoration(
               color: switch (state) {
@@ -83,7 +112,10 @@ class OmarchyStatus extends StatelessWidget {
                 _ => normal.withValues(alpha: 0.2),
               },
             ),
-            child: DefaultForeground(foreground: bright, child: this.child),
+            child: DefaultForeground(
+              foreground: bright,
+              child: Center(child: this.child),
+            ),
           );
         },
       );
