@@ -2066,7 +2066,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 --------------------------------------------------------------------------------
 clock
+decimal
 fake_async
+rational
 
 
                                  Apache License
