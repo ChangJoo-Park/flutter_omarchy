@@ -1,4 +1,5 @@
-import 'package:example/calculator/action.dart';
+import 'package:example/calculator/calc_manager/calc_manager.dart';
+import 'package:example/calculator/calc_manager/constants.dart';
 import 'package:flutter_omarchy/flutter_omarchy.dart';
 
 class ButtonGrid extends StatelessWidget {
@@ -9,56 +10,56 @@ class ButtonGrid extends StatelessWidget {
     this.spacing = 4.0,
   });
 
-  final ValueChanged<CalculatorAction> onPressed;
-  final Map<CalculatorAction, SimulatedPressController> simulated;
+  final ValueChanged<int> onPressed;
+  final Map<int, SimulatedPressController> simulated;
   final double spacing;
 
-  static const rows = <List<CalculatorAction>>[
+  static const rows = <List<int>>[
     [
-      MemoryClear(),
-      OpenParenthesis(),
-      CloseParenthesis(),
-      ClearEntry(),
-      Backspace(),
-      ClearAll(),
-      Operator.divide(),
+      OpCode.memoryClear,
+      OpCode.openParenthesis,
+      OpCode.closeParenthesis,
+      OpCode.clearEntry,
+      OpCode.backspace,
+      OpCode.clear,
+      OpCode.divide,
     ],
     [
-      MemoryRecall(),
-      Sine(),
-      Power(),
-      Digit(7),
-      Digit(8),
-      Digit(9),
-      Operator.multiply(),
+      OpCode.memoryRecall,
+      OpCode.sin,
+      OpCode.pow,
+      OpCode.digit7,
+      OpCode.digit8,
+      OpCode.digit9,
+      OpCode.multiply,
     ],
 
     [
-      MemoryAdd(),
-      Cosine(),
-      Square(),
-      Digit(4),
-      Digit(5),
-      Digit(6),
-      Operator.minus(),
+      OpCode.memoryAdd,
+      OpCode.cos,
+      OpCode.square,
+      OpCode.digit4,
+      OpCode.digit5,
+      OpCode.digit6,
+      OpCode.subtract,
     ],
     [
-      MemorySubtract(),
-      Tangent(),
-      Percent(),
-      Digit(1),
-      Digit(2),
-      Digit(3),
-      Operator.plus(),
+      OpCode.memorySubtract,
+      OpCode.tan,
+      OpCode.percent,
+      OpCode.digit1,
+      OpCode.digit2,
+      OpCode.digit3,
+      OpCode.add,
     ],
     [
-      Pi(),
-      Euler(),
-      SquareRoot(),
-      ToggleSign(),
-      Digit(0),
-      DecimalPoint(),
-      Equals(),
+      OpCode.pi,
+      OpCode.ln,
+      OpCode.sqrt,
+      OpCode.inv,
+      OpCode.digit0,
+      OpCode.decimalSeparator,
+      OpCode.equals,
     ],
   ];
 
@@ -97,36 +98,52 @@ class ButtonGrid extends StatelessWidget {
 class CalculatorButton extends StatelessWidget {
   const CalculatorButton(this.action, {super.key, required this.onPressed});
 
-  final CalculatorAction action;
+  final int action;
   final VoidCallback onPressed;
   AnsiColor get color => switch (action) {
-    ClearAll() => AnsiColor.red,
-    ClearEntry() => AnsiColor.red,
-    Backspace() => AnsiColor.red,
-    ToggleSign() => AnsiColor.blue,
-    Percent() => AnsiColor.cyan,
-    SquareRoot() => AnsiColor.cyan,
-    Square() => AnsiColor.cyan,
-    Power() => AnsiColor.cyan,
-    Pi() => AnsiColor.cyan,
-    Euler() => AnsiColor.cyan,
-    OpenParenthesis() => AnsiColor.blue,
-    CloseParenthesis() => AnsiColor.blue,
-    Trigonometric() => AnsiColor.cyan,
-    Equals() => AnsiColor.green,
-    Digit() => AnsiColor.white,
-    DecimalPoint() => AnsiColor.white,
-    Operator() => AnsiColor.yellow,
-    Memory() => AnsiColor.magenta,
+    OpCode.clear => AnsiColor.red,
+    OpCode.clearEntry => AnsiColor.red,
+    OpCode.backspace => AnsiColor.red,
+    OpCode.inv => AnsiColor.blue,
+    OpCode.percent => AnsiColor.cyan,
+    OpCode.sqrt => AnsiColor.cyan,
+    OpCode.square => AnsiColor.cyan,
+    OpCode.pow => AnsiColor.cyan,
+    OpCode.ln => AnsiColor.cyan,
+    OpCode.pi => AnsiColor.cyan,
+    OpCode.openParenthesis || OpCode.closeParenthesis => AnsiColor.blue,
+    OpCode.sin || OpCode.cos || OpCode.tan => AnsiColor.cyan,
+    OpCode.equals => AnsiColor.green,
+    OpCode.digit0 ||
+    OpCode.digit1 ||
+    OpCode.digit2 ||
+    OpCode.digit3 ||
+    OpCode.digit4 ||
+    OpCode.digit5 ||
+    OpCode.digit6 ||
+    OpCode.digit7 ||
+    OpCode.digit8 ||
+    OpCode.digit9 => AnsiColor.white,
+    OpCode.decimalSeparator => AnsiColor.white,
+    OpCode.add ||
+    OpCode.subtract ||
+    OpCode.multiply ||
+    OpCode.divide => AnsiColor.yellow,
+    OpCode.memoryRecall ||
+    OpCode.memoryClear ||
+    OpCode.memoryAdd ||
+    OpCode.memorySubtract ||
+    OpCode.memoryStore => AnsiColor.magenta,
+    _ => AnsiColor.white,
   };
 
   Widget symbol(bool isSmall) => switch (action) {
-    Backspace() => Icon(
+    OpCode.backspace => Icon(
       OmarchyIcons.mdBackspaceOutline,
       size: isSmall ? 30 : 48,
     ),
     final other => Text(
-      other.toString(),
+      CalcEngine.opCodeToUnaryString(action, true, AngleType.radians),
       style: TextStyle(fontSize: isSmall ? 20 : 32),
     ),
   };
