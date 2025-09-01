@@ -4,6 +4,8 @@ export 'utils/pointer_area.dart';
 export 'utils/simulated_press.dart';
 export 'utils/optional.dart';
 export 'utils/fade_in.dart';
+export 'utils/default_padding.dart';
+export 'utils/default_foreground.dart';
 
 export 'button.dart';
 export 'resize_divider.dart';

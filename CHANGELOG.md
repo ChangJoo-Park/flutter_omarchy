@@ -1,3 +1,7 @@
+## 0.1.6
+
+* Added SimulatedTap.
+
 ## 0.1.4
 
 * Fixed status bar.

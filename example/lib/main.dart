@@ -8,11 +8,11 @@ import 'package:example/counter.dart';
 import 'package:example/file_explorer.dart';
 import 'package:example/gallery.dart';
 import 'package:example/markdown_editor.dart';
-import 'package:example/omarchy_preview.dart';
 import 'package:example/pomodoro.dart';
 import 'package:example/qr_code_generator.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_omarchy/flutter_omarchy.dart';
+import 'package:flutter_omarchy/preview.dart';
 
 enum App {
   gallery,
@@ -65,7 +65,15 @@ Future<void> main(List<String> args) async {
 
   await Omarchy.initialize();
   if (result['preview']) {
-    return runApp(OmarchyPreview(initialApp: app));
+    return runApp(
+      OmarchyPreview(
+        wallpapers: {
+          for (final entry in OmarchyColorThemes.all.entries)
+            entry.key: AssetImage('assets/${entry.key}.jpg'),
+        },
+        children: App.values.map((x) => x.build()).toList(),
+      ),
+    );
   }
   runApp(app.build());
 }
