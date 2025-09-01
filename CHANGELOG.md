@@ -1,3 +1,7 @@
+## 0.1.7
+
+* Added OmarchyPreview.
+
 ## 0.1.6
 
 * Added SimulatedTap.
