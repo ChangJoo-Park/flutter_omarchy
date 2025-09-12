@@ -1,3 +1,8 @@
+## 0.1.8
+
+* Exposing missing utils.
+* Added icon logo.
+
 ## 0.1.7
 
 * Added OmarchyPreview.

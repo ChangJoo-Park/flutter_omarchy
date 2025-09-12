@@ -256,6 +256,11 @@ class WidgetsPage extends StatelessWidget {
                   children: [
                     Align(
                       alignment: Alignment.topLeft,
+                      child: OmarchyLogo.icon(width: 120),
+                    ),
+                    const SizedBox(height: 14),
+                    Align(
+                      alignment: Alignment.topLeft,
                       child: OmarchyLogo(width: 200),
                     ),
                   ],

@@ -1,16 +1,32 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_omarchy/src/theme/theme.dart';
 
-class OmarchyLogo extends StatelessWidget {
-  const OmarchyLogo({super.key, this.color, this.width});
+enum _LogoType { icon, text }
 
+class OmarchyLogo extends StatelessWidget {
+  const OmarchyLogo({super.key, this.color, this.width})
+    : _type = _LogoType.text;
+
+  const OmarchyLogo.icon({super.key, this.color, this.width})
+    : _type = _LogoType.icon;
+
+  final _LogoType _type;
   final Color? color;
   final double? width;
 
   @override
   Widget build(BuildContext context) {
     Widget result = FittedBox(
-      child: CustomPaint(size: Size(1215, 285), painter: _Painter()),
+      child: switch (_type) {
+        _LogoType.text => CustomPaint(
+          size: Size(1215, 285),
+          painter: _TextPainter(),
+        ),
+        _LogoType.icon => CustomPaint(
+          size: Size(353, 353),
+          painter: _IconPainter(),
+        ),
+      },
     );
     final color = this.color ?? OmarchyTheme.of(context).colors.foreground;
     result = ColorFiltered(
@@ -24,7 +40,49 @@ class OmarchyLogo extends StatelessWidget {
   }
 }
 
-class _Painter extends CustomPainter {
+class _IconPainter extends CustomPainter {
+  @override
+  void paint(Canvas canvas, Size size) {
+    Path path_0 = Path();
+    path_0.moveTo(237, 353);
+    path_0.lineTo(353, 353);
+    path_0.lineTo(353, 13);
+    path_0.lineTo(183, 13);
+    path_0.moveTo(183, 299);
+    path_0.lineTo(183, 353);
+    path_0.lineTo(13, 353);
+    path_0.lineTo(13, 183);
+    path_0.moveTo(183, 299);
+    path_0.lineTo(299, 299);
+    path_0.lineTo(299, 67);
+    path_0.lineTo(263, 67);
+    path_0.moveTo(183, 299);
+    path_0.lineTo(67, 299);
+    path_0.lineTo(67, 183);
+    path_0.moveTo(183, 13);
+    path_0.lineTo(13, 13);
+    path_0.lineTo(13, 183);
+    path_0.moveTo(183, 13);
+    path_0.lineTo(183, 67);
+    path_0.lineTo(67, 67);
+    path_0.lineTo(67, 183);
+    path_0.moveTo(13, 183);
+    path_0.lineTo(67, 183);
+
+    final paint = Paint()
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 26;
+    paint.color = Color(0xff000000);
+    canvas.drawPath(path_0, paint);
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) {
+    return true;
+  }
+}
+
+class _TextPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     Path path_0 = Path();
@@ -70,7 +128,7 @@ class _Painter extends CustomPainter {
     path_0.close();
 
     Paint paint0Fill = Paint()..style = PaintingStyle.fill;
-    paint0Fill.color = Color(0xff000000).withOpacity(1.0);
+    paint0Fill.color = Color(0xff000000);
     canvas.drawPath(path_0, paint0Fill);
 
     Path path_1 = Path();
@@ -102,7 +160,7 @@ class _Painter extends CustomPainter {
     path_1.close();
 
     Paint paint1Fill = Paint()..style = PaintingStyle.fill;
-    paint1Fill.color = Color(0xff000000).withOpacity(1.0);
+    paint1Fill.color = Color(0xff000000);
     canvas.drawPath(path_1, paint1Fill);
 
     Path path_2 = Path();
@@ -145,7 +203,7 @@ class _Painter extends CustomPainter {
     path_2.close();
 
     Paint paint2Fill = Paint()..style = PaintingStyle.fill;
-    paint2Fill.color = Color(0xff000000).withOpacity(1.0);
+    paint2Fill.color = Color(0xff000000);
     canvas.drawPath(path_2, paint2Fill);
 
     Path path_3 = Path();
@@ -177,7 +235,7 @@ class _Painter extends CustomPainter {
     path_3.close();
 
     Paint paint3Fill = Paint()..style = PaintingStyle.fill;
-    paint3Fill.color = Color(0xff000000).withOpacity(1.0);
+    paint3Fill.color = Color(0xff000000);
     canvas.drawPath(path_3, paint3Fill);
 
     Path path_4 = Path();
@@ -212,7 +270,7 @@ class _Painter extends CustomPainter {
     path_4.close();
 
     Paint paint4Fill = Paint()..style = PaintingStyle.fill;
-    paint4Fill.color = Color(0xff000000).withOpacity(1.0);
+    paint4Fill.color = Color(0xff000000);
     canvas.drawPath(path_4, paint4Fill);
 
     Path path_5 = Path();
@@ -253,7 +311,7 @@ class _Painter extends CustomPainter {
     path_5.close();
 
     Paint paint5Fill = Paint()..style = PaintingStyle.fill;
-    paint5Fill.color = Color(0xff000000).withOpacity(1.0);
+    paint5Fill.color = Color(0xff000000);
     canvas.drawPath(path_5, paint5Fill);
 
     Path path_6 = Path();
@@ -293,7 +351,7 @@ class _Painter extends CustomPainter {
     path_6.close();
 
     Paint paint6Fill = Paint()..style = PaintingStyle.fill;
-    paint6Fill.color = Color(0xff000000).withOpacity(1.0);
+    paint6Fill.color = Color(0xff000000);
     canvas.drawPath(path_6, paint6Fill);
   }
 
