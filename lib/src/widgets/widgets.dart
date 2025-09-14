@@ -26,3 +26,4 @@ export 'input_container.dart';
 export 'text_input.dart';
 export 'select.dart';
 export 'split_panel.dart';
+export 'side_panel.dart';

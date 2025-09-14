@@ -1,3 +1,7 @@
+## 0.1.9
+
+* Exposing side panel.
+
 ## 0.1.8
 
 * Exposing missing utils.
